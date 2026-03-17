@@ -1,0 +1,80 @@
+IDEE AFACERE - CAFENEA BUCUREȘTI SECTOR 3
+==========================================
+
+PROMPT 1 - Analiza pieței (Role Prompting)
+------------------------------------------
+Prompt: "Acționează ca un consultant de business cu experiență în HoReCa. 
+Analizează piața pentru o cafenea în București, Sector 3, 
+cu target populația activă între 20-50 ani."
+
+Răspuns ChatGPT:
+Sectorul 3 din București are o populație activă numeroasă, cu zone 
+rezidențiale și de birouri în expansiune (Timpuri Noi, Dristor, Iancului). 
+Cererea pentru cafenele de calitate este ridicată, mai ales în proximitatea 
+huburilor de birouri și centrelor comerciale. Concurența există, dar 
+există loc pentru cafenele cu identitate clară și experiență autentică.
+
+==========================================
+
+PROMPT 2 - Propunere de valoare (Chain of Thought)
+---------------------------------------------------
+Prompt: "Gândește pas cu pas și creează o propunere de valoare unică 
+pentru o cafenea în Sector 3 București, targetând persoane active 
+între 20-50 ani care lucrează sau locuiesc în zonă."
+
+Răspuns ChatGPT:
+Pas 1 - Clientul: Profesioniști activi, studenți masteranzi, părinți tineri
+Pas 2 - Nevoia lor: Loc confortabil pentru muncă, întâlniri, relaxare
+Pas 3 - Propunere: "Cafeneaua ta de cartier - unde cafeaua bună 
+întâlnește spațiul de lucru confortabil. Wi-Fi rapid, prize la fiecare 
+masă, cafea de specialitate și meniu simplu dar delicios."
+
+==========================================
+
+PROMPT 3 - Plan de marketing (Few-Shot Prompting)
+--------------------------------------------------
+Prompt: "Iată două exemple de cafenele de succes: 
+1. Origo - cafea de specialitate, comunitate puternică 
+2. Bob Coffee Lab - focus pe educație despre cafea.
+Pe baza acestor exemple, creează un plan de marketing 
+pentru cafeneaua mea din Sector 3."
+
+Răspuns ChatGPT:
+- Social Media: Instagram și TikTok cu conținut behind-the-scenes, 
+  rețete de cafea, atmosfera cafenelei
+- Loyalty Program: Card de fidelitate - a 10-a cafea gratuită
+- Evenimente lunare: Seri de degustare cafea, workshop-uri latte art
+- Parteneriate locale: Colaborare cu firme din zonă pentru pachete 
+  corporate (cafea la birou, reduceri angajați)
+- Google My Business: Optimizat cu poze, răspuns la recenzii
+
+==========================================
+
+PROMPT 4 - Analiza financiară (Structured Output)
+--------------------------------------------------
+Prompt: "Creează o estimare financiară structurată în format tabel 
+pentru primul an de funcționare al unei cafenele mici (40 mp) 
+în București, Sector 3."
+
+Răspuns ChatGPT:
+COSTURI INIȚIALE:
+- Chirie și amenajare: 25.000 EUR
+- Echipamente cafea: 8.000 EUR
+- Stocuri inițiale: 2.000 EUR
+- Marketing lansare: 1.500 EUR
+TOTAL START: ~36.500 EUR
+
+VENITURI ESTIMATE LUNAR:
+- 80 clienți/zi x 25 RON/client = 2.000 RON/zi
+- Venit lunar estimat: ~50.000 RON
+- Costuri operaționale lunare: ~35.000 RON
+- PROFIT ESTIMAT LUNAR: ~15.000 RON
+
+==========================================
+
+CONCLUZIE
+---------
+O cafenea în Sector 3 București targetând populația activă 20-50 ani 
+reprezintă o oportunitate viabilă, cu potențial de rentabilitate 
+din luna 6-8 de funcționare, dacă se mizează pe locație bună, 
+calitatea produselor și comunitate loială.
