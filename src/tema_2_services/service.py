@@ -40,14 +40,17 @@ class RAGAssistant:
         os.makedirs(DATA_DIR, exist_ok=True)
         self.embedder = None
 
-        # ToDo: Adaugat o propozitie de referinta mai specifica pentru domeniul dvs
         self.relevance = self._embed_texts(
-            "Aceasta este o intrebare relevanta despre ...",
+            "Legislatie romaneasca privind autorizarea constructiilor, calitatea in constructii, urbanism, amenajarea teritoriului, monumentele istorice si codul fiscal",
         )[0]
 
-        # ToDo: Definiti un prompt de sistem mai detaliat pentru a ghida raspunsurile LLM-ului in directia dorita
         self.system_prompt = (
-            "..."
+            "Esti un asistent juridic specializat in legislatia romaneasca din domeniul constructiilor si urbanismului. "
+            "Raspunzi la intrebari despre autorizatii de construire, calitatea in constructii, amenajarea teritoriului, "
+            "urbanism, protejarea monumentelor istorice, asociatii de proprietari si reglementari fiscale aferente constructiilor. "
+            "Raspunde intotdeauna in limba romana, clar si structurat. "
+            "Citeaza articolele de lege relevante cand este posibil. "
+            "Daca informatia nu se regaseste in contextul furnizat, spune ca nu ai suficiente date si sugereaza consultarea unui specialist."
         )
 
 
@@ -88,13 +91,15 @@ class RAGAssistant:
 
         system_msg = self.system_prompt
 
-        # ToDo: Ajustati acest prompt pentru a se potrivi mai bine cu domeniul dvs si pentru a ghida LLM-ul sa ofere raspunsuri mai relevante si structurate.
         messages = [
             {"role": "system", "content": system_msg},
             {
                 "role": "user",
                 "content": (
-                    "..."
+                    f"Foloseste urmatorul context extras din legislatia romaneasca pentru a raspunde la intrebare.\n\n"
+                    f"Context:\n{context}\n\n"
+                    f"Intrebare: {user_input}\n\n"
+                    f"Raspunde clar, in limba romana, citand articolele relevante din lege acolo unde este posibil."
                 ),
             },
         ]
@@ -215,26 +220,25 @@ class RAGAssistant:
         return [chunks[i] for i in indices[0] if i < len(chunks)]
 
     def calculate_similarity(self, text: str) -> float:
-        # ToDo: Ajustati aceasta propozitie de referinta pentru a se potrivi mai bine cu domeniul dvs, astfel incat sa reflecte mai precis ce inseamna "relevant" in contextul aplicatiei dvs.
-        """Returneaza similaritatea cu o propozitie de referinta despre ... ."""
+        """Returneaza similaritatea cu o propozitie de referinta despre legislatia constructiilor."""
         embedding = self._embed_texts(text.strip())[0]
         return self._cosine_similarity(embedding, self.relevance)
 
     def is_relevant(self, user_input: str) -> bool:
-        # ToDo: Ajustati pragul de similaritate pentru a se potrivi mai bine cu domeniul dvs, astfel incat sa echilibreze corect intre a permite intrebari relevante si a respinge cele irelevante.
-        """Verifica daca intrarea utilizatorului e despre ...."""
-        return self.calculate_similarity(user_input) >= 0.5
+        """Verifica daca intrarea utilizatorului e despre legislatia constructiilor si urbanismului."""
+        return self.calculate_similarity(user_input) >= 0.3
 
     def assistant_response(self, user_message: str) -> str:
         """Directioneaza mesajul utilizatorului catre calea potrivita."""
         if not user_message:
-            # ToDo: Ajustati acest mesaj pentru a fi mai specific pentru domeniul dvs, astfel incat sa ghideze utilizatorii sa puna intrebari relevante si sa ofere un exemplu concret.
-            return "Te rog scrie un mesaj despre ... ."
+            return "Te rog scrie o intrebare despre legislatia constructiilor, de exemplu: 'Ce documente imi trebuie pentru autorizatia de construire?'"
 
         if not self.is_relevant(user_message):
-            # ToDo: Ajustati acest mesaj pentru a fi mai specific pentru domeniul dvs, astfel incat sa ghideze utilizatorii sa puna intrebari relevante si sa ofere un exemplu concret.
             return (
-                "..."
+                "Intrebarea ta nu pare sa fie legata de legislatia constructiilor si urbanismului. "
+                "Te rog adreseaza o intrebare din acest domeniu, de exemplu: "
+                "'Care sunt cerintele pentru obtinerea autorizatiei de construire?' sau "
+                "'Ce obligatii are executantul conform Legii 10/1995?'"
             )
 
         chunks = self._load_documents_from_web()
@@ -244,6 +248,5 @@ class RAGAssistant:
 
 if __name__ == "__main__":
     assistant = RAGAssistant()
-    # ToDo: Testati cu intrebari relevante pentru domeniul dvs, precum si cu intrebari irelevante pentru a va asigura ca logica de filtrare functioneaza corect.
-    print(assistant.assistant_response("..."))  # test relevant
-    print(assistant.assistant_response("..."))  # test irelevant
+    print(assistant.assistant_response("Ce documente sunt necesare pentru obtinerea autorizatiei de construire?"))  # test relevant
+    print(assistant.assistant_response("Care este reteta pentru ciorba de burta?"))  # test irelevant
