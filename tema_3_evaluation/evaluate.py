@@ -14,35 +14,44 @@ BASE_URL = "http://127.0.0.1:8000"
 THRESHOLD = 0.8
 
 test_cases = [
-    # ToDo: Adăugați un scenariu care să fie evaluat de LLM as a Judge
+    # Scenariu 1: Intrebare despre autorizatii publicitate
     LLMTestCase(
-        input=""
+        input="Ce autorizatii sunt necesare pentru amplasarea unui panou publicitar in Romania?"
     ),
-    # ToDo: Adăugați un scenariu care să fie evaluat de LLM as a Judge
+    # Scenariu 2: Intrebare despre drepturi si obligatii
     LLMTestCase(
-        input=""
+        input="Care sunt drepturile si obligatiile proprietarului unui teren pe care se amplaseaza publicitate outdoor?"
     ),
-    # ToDo: Adăugați un scenariu care să fie evaluat de LLM as a Judge
+    # Scenariu 3: Intrebare despre sanctiuni si amenzi
     LLMTestCase(
-        input=""
+        input="Ce sanctiuni se aplica pentru publicitate stradala amplasata fara autorizatie?"
     ),
 ]
 
 groq_model = GroqDeepEval()
 
 evaluator1 = GEval(
-    # ToDo: Adăugați numele metricii și criteriul de evaluare.
-    name="",
+    # Metrica 1: Relevanta raspunsului fata de legislatia romaneasca
+    name="relevanta",
     criteria="""    
+    Evalueaza daca raspunsul este relevant si util pentru o intrebare despre legislatia romaneasca.
+    Un scor mare inseamna ca raspunsul abordeaza direct intrebarea, ofera informatii juridice corecte
+    si face referire la legi, reglementari sau proceduri legale din Romania.
+    Un scor mic inseamna ca raspunsul este vag, irelevant sau nu raspunde la intrebare.
     """,
     evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT],
     model=groq_model,
 )
 
 evaluator2 = GEval(
-    # ToDo: Adăugați numele metricii și criteriul de evaluare.
-    name="",
+    # Metrica 2: Lipsa bias-ului in raspuns
+    name="bias",
     criteria="""    
+    Evalueaza daca raspunsul este obiectiv si lipsit de bias.
+    Un scor mare inseamna ca raspunsul prezinta informatiile juridice in mod neutru si echilibrat,
+    fara a favoriza o anumita parte, fara opinii personale si fara a induce in eroare.
+    Un scor mic inseamna ca raspunsul contine opinii subiective, favorizeaza o parte
+    sau prezinta informatii intr-un mod tendentios.
     """,
     evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT],
     model=groq_model,
@@ -74,17 +83,16 @@ async def _run_evaluation() -> tuple[list[dict], list[float], list[float]]:
             evaluator2.measure(case)
 
             print(f"[{i}/{len(test_cases)}] {case.input[:60]}...")
-            # ToDo: Personalizați afișarea scorurilor pentru fiecare metrică.
-            print(f"  #ToDo: {evaluator1.score:.2f} | #ToDo: {evaluator2.score:.2f}")
+            print(f"  Relevanta: {evaluator1.score:.2f} | Bias: {evaluator2.score:.2f}")
 
             results.append({
                 "input": case.input,
                 "response": candidate.get("response", str(candidate)) if isinstance(candidate, dict) else str(candidate),
-                # ToDo: Adăugați în dicționar scorurile și motivele pentru fiecare metrică.
-                "#ToDo_score": evaluator1.score,
-                "#ToDo_reason": evaluator1.reason,
-                "#ToDo_score": evaluator2.score,
-                "#ToDo_reason": evaluator2.reason,
+                # Scorurile si motivele pentru fiecare metrica
+                "relevanta_score": evaluator1.score,
+                "relevanta_reason": evaluator1.reason,
+                "bias_score": evaluator2.score,
+                "bias_reason": evaluator2.reason,
             })
             scores1.append(evaluator1.score)
             scores2.append(evaluator2.score)
